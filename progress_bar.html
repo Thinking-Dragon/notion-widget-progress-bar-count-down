@@ -10,9 +10,16 @@
     <progress id="progress-bar" value="32" max="100"></progress>
 
     <script>
+        function getUrlParams() {
+            var search = location.search.substring(1);
+            return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+        }
+
+        const URL_PARAMETERS = getUrlParams();
+
         const MAX_PROGRESS_BAR_VALUE = 10;
-        const START_TIMESTAMP = Date.now();
-        const END_TIMESTAMP = Date.now() + 1000 * 6;
+        const START_TIMESTAMP = URL_PARAMETERS.start;
+        const END_TIMESTAMP = URL_PARAMETERS.end;
 
         function mapTo(value) {
             return ((value - START_TIMESTAMP) / (END_TIMESTAMP - START_TIMESTAMP)) * MAX_PROGRESS_BAR_VALUE;
