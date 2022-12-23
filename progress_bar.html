@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Bar</title>
+</head>
+<body>
+    <progress id="progress-bar" value="32" max="100"></progress>
+
+    <script>
+        const MAX_PROGRESS_BAR_VALUE = 10;
+        const START_TIMESTAMP = Date.now();
+        const END_TIMESTAMP = Date.now() + 1000 * 6;
+
+        function mapTo(value) {
+            return ((value - START_TIMESTAMP) / (END_TIMESTAMP - START_TIMESTAMP)) * MAX_PROGRESS_BAR_VALUE;
+        }
+
+        const progressBar = document.getElementById('progress-bar');
+
+        progressBar.setAttribute('max', MAX_PROGRESS_BAR_VALUE);
+        progressBar.setAttribute('value', 0);
+
+        setInterval(() => {
+            const currentTimestamp = Date.now();
+            const currentValue = mapTo(currentTimestamp);
+            progressBar.setAttribute('value', currentValue);
+
+            if(currentValue >= MAX_PROGRESS_BAR_VALUE) {
+                document.querySelector('body').innerHTML = 'Goal reached!'
+            }
+        }, 60);
+    </script>
+</body>
+</html>
