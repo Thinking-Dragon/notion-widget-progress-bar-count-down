@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configure your widget</title>
+
+    <style>
+        .invisible {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function generateEmbeed(startTime, endTime) {
+            const startTimestamp = new Date(startTime).valueOf();
+            const endTimestamp = new Date(endTime).valueOf();
+
+            const embeedLink = `http://127.0.0.1:5500/progress_bar.html?start=${startTimestamp}&end=${endTimestamp}`;
+
+            document.getElementById('embeed-link').setAttribute('href', embeedLink);
+            document.getElementById('embeed-link').innerHTML = embeedLink;
+            document.getElementById('embeed-link-wrapper').classList.remove('invisible');
+        }
+    </script>
+
+    <label>From:</label>
+    <input type="datetime-local" id="start_time">
+    <label>To:</label>
+    <input type="datetime-local" id="end_time">
+    <button onclick="generateEmbeed(document.getElementById('start_time').value, document.getElementById('end_time').value)">Generate</button>
+    <br>
+    <span id="embeed-link-wrapper" class="invisible">
+        <label>Copy this as embeed to your Notion page:</label>
+        <a id="embeed-link"></a>
+    </span>
+</body>
+</html>
